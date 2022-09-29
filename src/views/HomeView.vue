@@ -1,14 +1,16 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import { ref, onMounted } from 'vue'
+import SearchForm from '@/components/SearchForm.vue'
+import ListGifs from '@/components/ListGifs.vue'
+import { services } from '@/hooks/useFetchGifs.js'
 
+const arrayGifs = ref([])
 
-
-
-
+onMounted(async () => {
+  arrayGifs.value = await services.getGifsApi()
+})
 </script>
-
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <SearchForm/>
+  <ListGifs :array-gifs="arrayGifs"/>
 </template>
